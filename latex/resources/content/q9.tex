@@ -1,0 +1,121 @@
+\newpage
+
+% In Bayesian theory, we assume that a variable $X$ follows a certain distribution $f(X|\theta)$ in which $\theta$ represent the (unknown) parameters of the distribution. As such, these parameters are assumed to have their own distribution. Prior knowledge, before gathering the data $x$, is specified in the prior distribution with density $\pi(\theta)$. The information contained in the data $x$ is then combined with this prior knowledge on the parameters to obtain the posterior distribution $\pi(\theta|x)$ using Bayes’ theorem. If the distribution of the posterior is the same as that of the prior, the prior is called a \textit{conjugate prior}.
+
+\section{Show that, for $X$ an observation from the negative binomial distribution $NB(r, p)$, the family of beta distributions $\text{Be}(\alpha, \beta)$ is a family of conjugate priors.} % Lecture 2z
+
+In Bayesian inference, the unknown parameter \(p\) is modeled as a random variable with prior distribution \(\pi(p)\). After observing data \(x\), Bayes’ theorem updates this belief via:
+\begin{equation}
+\pi(p \mid x) = \frac{f(x \mid p) \pi(p)}{\int f(x \mid p) \pi(p) \, dp}
+\end{equation}
+where \(f(x \mid p)\) is the likelihood function.
+
+Assuming a Beta prior for \(p\) with parameters \(\alpha, \beta > 0\):
+\begin{equation}
+\pi(p) = \frac{1}{B(\alpha, \beta)} p^{\alpha - 1} (1 - p)^{\beta - 1}, \quad p \in (0,1)
+\end{equation}
+and a Negative Binomial likelihood for the number of failures \(x \in \mathbb{N}_0\) before \(r\) successes:
+\begin{equation}
+f(x \mid r, p) = \binom{x + r - 1}{x} p^{r} (1 - p)^{x}
+\end{equation}
+the posterior distribution can be expressed (up to a normalization constant independent of \(p\)) as:
+\begin{equation}
+\pi(p \mid x) \propto p^{r + \alpha - 1} (1 - p)^{x + \beta - 1}
+\end{equation}
+
+This expression corresponds to the kernel of a Beta distribution, implying the posterior is:
+\begin{equation}
+p \mid x \sim \text{Be}(r + \alpha, \; x + \beta)
+\end{equation}
+
+This result demonstrates that the Beta distribution is conjugate to the Negative Binomial likelihood with respect to \(p\), enabling analytic Bayesian updating.
+
+A closely related example is the Beta–Binomial conjugacy, where if \(Y \sim \text{Binomial}(n, p)\) with Beta prior \(\text{Be}(\alpha, \beta)\), then the posterior is \(\text{Be}(\alpha + y, \beta + n - y)\).
+
+Therefore, the conjugacy property simplifies posterior inference for \(p\) in Negative Binomial models by preserving the Beta family form in the posterior distribution.
+
+
+
+
+
+% \section{Show that, for an observation \(X\) from the Negative Binomial distribution \(NB(r, p)\), the family of Beta distributions \(\text{Be}(\alpha, \beta)\) is a family of conjugate priors.}
+
+% A \emph{conjugate prior} is a prior distribution such that the posterior distribution remains in the same family as the prior after observing data.
+
+% Let the prior for the parameter \(p\) be Beta distributed:
+% \[
+% \pi(p) = \frac{1}{B(\alpha, \beta)} p^{\alpha - 1} (1 - p)^{\beta - 1}, \quad p \in (0, 1),
+% \]
+% and suppose the data \(X = x\) follows a Negative Binomial distribution with likelihood:
+% \[
+% f(x \mid r, p) = \binom{x + r - 1}{x} p^r (1 - p)^x.
+% \]
+
+% By Bayes' theorem, the posterior density is proportional to prior \(\times\) likelihood:
+% \[
+% \pi(p \mid x) \propto \pi(p) \cdot f(x \mid r, p) \propto p^{\alpha - 1}(1 - p)^{\beta - 1} \cdot p^r (1 - p)^x = p^{\alpha + r - 1} (1 - p)^{\beta + x - 1}.
+% \]
+
+% Ignoring constants independent of \(p\) (including the binomial coefficient and Beta function), the posterior has the kernel of a Beta distribution with updated parameters:
+% \[
+% p \mid x \sim \text{Be}(\alpha + r, \beta + x).
+% \]
+
+% Thus, the Beta family is conjugate to the Negative Binomial likelihood with respect to the parameter \(p\), enabling closed-form Bayesian updates.
+
+
+
+
+% ---
+
+% A conjugate prior is a prior probability distribution that, when combined with a specific likelihood function, results in a posterior distribution that belongs to the same family of distributions as the prior. We want to show then that the beta distribution (prior) combined with a negative binomial distribution (likelihood) is also a beta distribution. This can be expressed as:
+
+% \[
+% \text{posterior} = \frac{\text{prior} \times \text{likelihood}}{\text{marginal}}
+% \]
+
+% Since the marginal probability is a normalized constant, we can state that the posterior probability is proportional to the prior $\times$ likelihood,
+
+% \[
+% \text{posterior} \propto \text{prior} \times \text{likelihood}
+% \]
+
+% The prior being a beta distribution, we have:
+
+% \[
+% \text{prior} = \text{Be}(\alpha, \beta) = \frac{1}{B(\alpha, \beta)} p^{\alpha - 1}(1 - p)^{\beta - 1}
+% \]
+
+% The likelihood being the negative binomial distribution, we have:
+
+% \[
+% \text{likelihood} = \text{NB}(r, p) = \binom{x + r - 1}{x} p^r (1 - p)^x
+% \]
+
+% Combining the prior and the likelihood, we have:
+
+% \[
+% \text{posterior} \propto \frac{1}{B(\alpha, \beta)} p^{\alpha - 1}(1 - p)^{\beta - 1} \cdot \binom{x + r - 1}{x} p^r (1 - p)^x
+% \]
+
+% The binomial coefficient and the beta function being constant, we can leave them in the proportional sign,
+
+% \[
+% \text{posterior} \propto p^{\alpha - 1}(1 - p)^{\beta - 1} \cdot p^r (1 - p)^x
+% \]
+% \[
+% \text{posterior} \propto p^{\alpha + r - 1} (1 - p)^{\beta + x - 1}
+% \]
+
+% Since the posterior distribution is a probability, we want it to be integrated to 1. We can use the normalizing constant in a specific form,
+
+% \[
+% \text{posterior} \propto \frac{p^{\alpha + r - 1}(1 - p)^{\beta + x - 1}}{B(\alpha + r, \beta + x)}
+% \]
+
+% We can see that the expression obtained is the pdf of a beta distribution $\text{Be}(\alpha + r, \beta + x)$. Therefore, the posterior distribution has indeed the form of a beta distribution. The family of beta distributions is a family of conjugate priors.
+
+
+
+
+

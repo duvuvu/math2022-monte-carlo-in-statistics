@@ -1,0 +1,342 @@
+\newpage
+
+% Next, let us apply Monte Carlo for the estimation of the shape parameters of a beta distribution.
+
+\section{In Chapter 2, we estimated the shape parameters of the beta distribution using the maximum likelihood estimator. The problem, however, has no explicit solution. Another option is to use the Method of Moments (MOM) to determine $\hat{\alpha}$ and $\hat{\beta}$. As the name implies, the moments up to order $k$ will be used to estimate the $k$ parameters of a distribution.}
+
+
+% -------------------------------------------------------------------------------------------------
+
+\subsection*{(a) Show that for the gamma function, the following property holds: $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)$, $\alpha > 0$. As such, the gamma function can be seen as a generalization of factorials.}
+
+The Gamma function is defined for \(\alpha > 0\) as:
+\begin{equation}
+\Gamma(\alpha) = \int_0^\infty t^{\alpha - 1} e^{-t} \, dt
+\end{equation}
+
+% We want to show that:
+% \[
+% \Gamma(\alpha + 1) = \alpha \Gamma(\alpha).
+% \]
+
+% \textbf{Proof:}
+
+Also,
+% Starting from the definition,
+\begin{equation}
+\Gamma(\alpha + 1) = \int_0^\infty t^{\alpha} e^{-t} \, dt
+\end{equation}
+
+Using integration by parts, let:
+\begin{equation}
+u = t^{\alpha}, \quad dv = e^{-t} dt
+\end{equation}
+so that
+\begin{equation}
+du = \alpha t^{\alpha - 1} dt, \quad v = -e^{-t}
+\end{equation}
+
+Applying integration by parts $\int u \, dv = uv - \int v \, du$:
+\begin{equation}
+\Gamma(\alpha + 1) = \left. -t^{\alpha} e^{-t} \right|_0^\infty + \alpha \int_0^\infty t^{\alpha - 1} e^{-t} dt
+\end{equation}
+
+The boundary term evaluates to zero because:
+\begin{itemize}
+    \item As \(t \to \infty\), the exponential decay dominates the polynomial growth, so \(t^\alpha e^{-t} \to 0\).
+    \item At \(t = 0\), \(t^\alpha e^{-t} = 0\).
+\end{itemize}
+
+Therefore,
+\begin{align}
+\Gamma(\alpha + 1) &= \alpha \int_0^\infty t^{\alpha - 1} e^{-t} dt \\
+&= \alpha \Gamma(\alpha)
+\end{align}
+
+% \vspace{1em}
+% \textbf{Interpretation:}
+
+This recursive relation generalizes the factorial function because for natural numbers \( n \),
+\begin{equation}
+\Gamma(n) = (n-1)!
+\end{equation}
+which follows by repeatedly applying the recursive formula starting from \(\Gamma(1) = 1\).
+
+Thus, the Gamma function extends the factorial to real (and complex) arguments.
+
+
+
+% ---
+
+% As a reminder, the gamma function is defined as follows:
+% \[
+% \Gamma(\alpha) = \int_0^{+\infty} t^{\alpha - 1} e^{-t} dt
+% \]
+
+% We want to show $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha), \alpha > 0$. Let’s begin by expressing the $\Gamma(\alpha + 1)$ form,
+% \[
+% \Gamma(\alpha + 1) = \int_0^{+\infty} t^{\alpha} e^{-t} dt = \int_0^{+\infty} t^{\alpha + 1 - 1} e^{-t} dt = \int_0^{+\infty} t^n e^{-t} dt
+% \]
+
+% In order to integrate this expression, we will use the integration by parts technique. The formula is given by
+% \[
+% \int_a^b u(x)v'(x)dx = \left[ u(x)v(x) \right]_a^b - \int_a^b u'(x)v(x) dx
+% \]
+
+% Let’s denote $u(x) = t^\alpha$, $u'(x) = \alpha t^{\alpha - 1}$, $v(x) = -e^{-t}$, $v'(x) = e^{-t}$. We can replace the expression in the formula,
+
+% \[
+% \Gamma(\alpha + 1) = \left[ -e^{-t} t^\alpha \right]_0^{+\infty} + \int_0^{+\infty} \alpha t^{\alpha - 1} e^{-t} dt = 0 + \int_0^{+\infty} \alpha t^{\alpha - 1} e^{-t} dt
+% \]
+
+% \[
+% \Gamma(\alpha + 1) = \alpha \int_0^{+\infty} t^{\alpha - 1} e^{-t} dt = \alpha \Gamma(\alpha)
+% \]
+
+% We also know that the gamma function is equal to a factorial: $\Gamma(n) = (n - 1)!$. Therefore, using the property $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)$, we have:
+% \[
+% \Gamma(\alpha + 1) = \alpha \Gamma(\alpha) = \alpha (\alpha - 1)! = \alpha!
+% \]
+
+% We then can see the gamma function as a generalization of factorials.
+
+
+% -------------------------------------------------------------------------------------------------
+\newpage
+\subsection*{(b) Determine the moment of order $t$ of a $\text{Be}(\alpha, \beta)$ distribution.}
+
+Let \(X \sim \text{Be}(\alpha, \beta)\) be a Beta-distributed random variable with parameters \(\alpha > 0\) and \(\beta > 0\). The probability density function (PDF) of \(X\) is:
+\begin{equation}
+f_X(x) = \frac{1}{B(\alpha, \beta)} x^{\alpha - 1} (1 - x)^{\beta - 1}, \quad x \in (0, 1)
+\end{equation}
+where \(B(\alpha, \beta)\) is the Beta function.
+
+The \(t\)-th moment of \(X\) is defined as:
+\begin{equation}
+\mathbb{E}[X^t] = \int_0^1 x^t f_X(x) \, dx
+\end{equation}
+
+Substituting the PDF:
+\begin{equation}
+\mathbb{E}[X^t] = \frac{1}{B(\alpha, \beta)} \int_0^1 x^{t + \alpha - 1} (1 - x)^{\beta - 1} \, dx
+\end{equation}
+
+Recognizing the integral as the Beta function \(B(t + \alpha, \beta)\), we get:
+\begin{equation} \label{eq:10-12}
+\mathbb{E}[X^t] = \frac{B(t + \alpha, \beta)}{B(\alpha, \beta)}
+\end{equation}
+
+Using the Gamma function representation of the Beta function:
+\begin{equation}
+B(a, b) = \frac{\Gamma(a) \Gamma(b)}{\Gamma(a + b)}
+\end{equation}
+Eq. \ref{eq:10-12} can be rewritten as:
+\begin{align}
+\mathbb{E}[X^t] &= \frac{\Gamma(t + \alpha) \Gamma(\beta)}{\Gamma(t + \alpha + \beta)} \cdot \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} \\
+&= \frac{\Gamma(t + \alpha) \Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(t + \alpha + \beta)} \\
+&= \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} \cdot \frac{\Gamma(t + \alpha) \Gamma(\beta)}{\Gamma(t + \alpha + \beta)} \\
+&= \frac{B(t + \alpha, \beta)}{B(\alpha, \beta)}
+\end{align}
+
+% Thus, the \(t\)-th moment of a Beta(\(\alpha, \beta\)) distribution is:
+% \[
+% \mathbb{E}[X^t] = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} \cdot \frac{\Gamma(t + \alpha) \Gamma(\beta)}{\Gamma(t + \alpha + \beta)} = \frac{B(t + \alpha, \beta)}{B(\alpha, \beta)}
+% \]
+
+
+
+% ---
+
+% The moment of order $t$ of a distribution is given by:
+% \[
+% \mathbb{E}[X^t] = \int_{-\infty}^{+\infty} x^t f(x) dx
+% \]
+
+% $f(x)$ being the PDF of the distribution. In our case, $f(x)$ corresponds to the PDF of a beta distribution. Since $x$ is bounded between 0 and 1, the formula becomes:
+% \[
+% \mathbb{E}[X^t] = \int_0^1 x^t \cdot \frac{1}{B(\alpha, \beta)} x^{\alpha - 1} (1 - x)^{\beta - 1} dx
+% \]
+% \[
+% \mathbb{E}[X^t] = \frac{1}{B(\alpha, \beta)} \int_0^1 x^{t + \alpha - 1} (1 - x)^{\beta - 1} dx
+% \]
+
+% As a reminder, the beta function is given by:
+% \[
+% B(\alpha, \beta) = \int_0^1 x^{\alpha - 1} (1 - x)^{\beta - 1} dx = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}
+% \]
+
+% Then the moment can be simplified as:
+% \[
+% \mathbb{E}[X^t] = \frac{B(\alpha + t, \beta)}{B(\alpha, \beta)} = \frac{\Gamma(\alpha + t) \Gamma(\beta)}{\Gamma(\alpha + t + \beta)} \cdot \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} = \frac{\Gamma(\alpha + t) \Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\alpha + t + \beta)}
+% \]
+
+
+% -------------------------------------------------------------------------------------------------
+\newpage
+\subsection*{(c) Use this formula to obtain the expected value $\mathbb{E}[X]$ and variance $\text{Var}(X)$ for $X \sim \text{Be}(\alpha, \beta)$.}
+
+Using the moment formula derived in part (b), the \(t\)-th moment of a Beta-distributed variable \(X \sim \text{Be}(\alpha, \beta)\) is:
+\begin{equation}
+\mathbb{E}[X^t] = \frac{B(t + \alpha, \beta)}{B(\alpha, \beta)}    
+\end{equation}
+
+\subsubsection*{Expected value \(\mathbb{E}[X]\)}
+
+For the first moment (\(t = 1\)):
+\begin{equation}
+\mathbb{E}[X] = \frac{B(\alpha + 1, \beta)}{B(\alpha, \beta)}
+\end{equation}
+
+Using the Beta function identity in terms of Gamma functions:
+\begin{equation}
+B(a, b) = \frac{\Gamma(a) \Gamma(b)}{\Gamma(a + b)}
+\end{equation}
+we get:
+\begin{align}
+\mathbb{E}[X] &= \frac{\Gamma(\alpha + 1) \Gamma(\beta)}{\Gamma(\alpha + \beta + 1)} \cdot \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} \\
+&= \frac{\Gamma(\alpha + 1) \Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\alpha + \beta + 1)}
+\end{align}
+
+Using the recursive Gamma property \(\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)\), we simplify:
+\begin{equation}
+\mathbb{E}[X] = \frac{\alpha}{\alpha + \beta}
+\end{equation}
+
+\subsubsection*{Variance \(\text{Var}(X)\)}
+
+The variance is:
+\begin{equation}
+\text{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2
+\end{equation}
+
+Using the moment formula for \(t = 2\):
+\begin{align}
+\mathbb{E}[X^2] = \frac{B(\alpha + 2, \beta)}{B(\alpha, \beta)} &= \frac{\Gamma(\alpha + 2) \Gamma(\beta)}{\Gamma(\alpha + \beta + 2)} \cdot \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} \\
+&= \frac{\Gamma(\alpha + 2) \Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\alpha + \beta + 2)}
+\end{align}
+
+Using \(\Gamma(\alpha + 2) = (\alpha + 1) \alpha \Gamma(\alpha)\), we get:
+\begin{equation}
+\mathbb{E}[X^2] = \frac{\alpha (\alpha + 1)}{(\alpha + \beta)(\alpha + \beta + 1)}
+\end{equation}
+
+Therefore:
+\begin{align}
+\text{Var}(X) &= \frac{\alpha (\alpha + 1)}{(\alpha + \beta)(\alpha + \beta + 1)} - \left( \frac{\alpha}{\alpha + \beta} \right)^2 \\
+&= \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}
+\end{align}
+
+% \paragraph{Summary:}
+% \[
+% \boxed{
+% \mathbb{E}[X] = \frac{\alpha}{\alpha + \beta}, \quad
+% \text{Var}(X) = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}.
+% }
+% \]
+
+
+
+% Since the expected value $\mathbb{E}[X]$ corresponds to the moment of order 1, we can reuse the formula obtained just above and replace $t$ by 1,
+
+% \[
+% \mathbb{E}[X] = \frac{\Gamma(\alpha + 1)}{\Gamma(\alpha)} \cdot \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha + \beta + 1)}
+% \]
+
+% Using the property $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)$, the expression becomes:
+
+% \[
+% \mathbb{E}[X] = \frac{\alpha \Gamma(\alpha)}{\Gamma(\alpha)} \cdot \frac{\Gamma(\alpha + \beta)}{(\alpha + \beta)\Gamma(\alpha + \beta)} = \frac{\alpha}{\alpha + \beta}
+% \]
+
+% The variance $\text{Var}(X)$ is given by $\mathbb{E}[X^2] - \mathbb{E}[X]^2$. Let’s first express $\mathbb{E}[X]^2$,
+
+% \[
+% \mathbb{E}[X]^2 = \left( \frac{\alpha}{\alpha + \beta} \right)^2
+% \]
+
+% Let’s continue by calculating the expression for $\mathbb{E}[X^2]$:
+
+% \[
+% \mathbb{E}[X^2] = \frac{\Gamma(\alpha + 2)}{\Gamma(\alpha)} \cdot \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha + \beta + 2)}
+% \]
+
+% \[
+% \mathbb{E}[X^2] = \frac{(\alpha + 1)\alpha \Gamma(\alpha)}{\Gamma(\alpha)} \cdot \frac{\Gamma(\alpha + \beta)}{(\alpha + \beta + 1)(\alpha + \beta)\Gamma(\alpha + \beta)}
+% \]
+
+% \[
+% \mathbb{E}[X^2] = \frac{\alpha^2 + \alpha}{(\alpha + \beta)(\alpha + \beta + 1)}
+% \]
+
+% \[
+% \text{Var}(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2 = \frac{\alpha^2 + \alpha}{(\alpha + \beta)(\alpha + \beta + 1)} - \frac{\alpha^2}{(\alpha + \beta)^2}
+% \]
+
+% \[
+% \text{Var}(X) = \frac{(\alpha^2 + \alpha)(\alpha + \beta) - \alpha^2(\alpha + \beta + 1)}{(\alpha + \beta)^2(\alpha + \beta + 1)}
+% \]
+
+% \[
+% \text{Var}(X) = \frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}
+% \]
+
+
+% -------------------------------------------------------------------------------------------------
+\newpage
+\subsection*{(d) Use the Monte Carlo approach to estimate the shape parameters of a $\text{Be}(9, 3)$ distribution (set $n = 15,\!000$).}
+
+Using the Monte Carlo approach, we generated \( n = 15,\!000 \) samples from a \(\text{Be}(9, 3)\) distribution. From these samples, we computed the sample mean \(\bar{X}\) and sample variance \(S^2\), which serve as empirical estimates of the theoretical moments.
+
+Recall the theoretical formulas for the mean and variance of a Beta-distributed random variable \(X \sim \text{Be}(\alpha, \beta)\):
+\begin{equation}
+\mathbb{E}[X] = \frac{\alpha}{\alpha + \beta}
+\end{equation}
+\begin{equation}
+\mathrm{Var}(X) = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}
+\end{equation}
+
+By matching these theoretical moments to the sample moments, $\bar{X} \approx \mathbb{E}[X]$, $S^2 \approx \mathrm{Var}(X)$, we invert the formulas to estimate the shape parameters:
+\begin{equation}
+\hat{\alpha} = \bar{X} \left( \frac{\bar{X}(1 - \bar{X})}{S^2} - 1 \right)
+\end{equation}
+\begin{equation}
+\hat{\beta} = (1 - \bar{X}) \left( \frac{\bar{X}(1 - \bar{X})}{S^2} - 1 \right)
+\end{equation}
+
+Applying this method to the simulated data, we obtained:
+\[
+\hat{\alpha} \approx 9.0754, \quad \hat{\beta} \approx 3.0359
+\]
+which closely approximate the true parameters \(\alpha = 9\) and \(\beta = 3\).
+
+% This demonstrates that the Method of Moments, combined with Monte Carlo simulation, provides a reliable and straightforward approach to parameter estimation in Beta distributions.
+
+
+
+% ---
+
+% The estimation of the parameters $\alpha$, $\beta$ using the method of moments is given by the following formula:
+% \[
+% \hat{\alpha} = \mathbb{E}[X] \left( \frac{\mathbb{E}[X](1 - \mathbb{E}[X])}{\text{Var}(X)} - 1 \right)
+% \]
+% \[
+% \hat{\beta} = (1 - \mathbb{E}[X]) \left( \frac{\mathbb{E}[X](1 - \mathbb{E}[X])}{\text{Var}(X)} - 1 \right)
+% \]
+
+% The estimations found using a sample of size 10,000 are
+% \[
+% \hat{\alpha} = 4.95
+% \]
+% \[
+% \hat{\beta} = 11.99
+% \]
+
+% Which is a good approximation.
+
+
+
+
+
+
+
+

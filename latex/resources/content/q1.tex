@@ -1,0 +1,154 @@
+% The beta distribution is used to, for example, model the probability of probabilities. This continuous
+% distribution is defined on the interval $[0, 1]$ (one of the very few distributions that is defined on a finite
+% interval, next to the uniform distribution) and is characterized by 2 parameters $\alpha$ and $\beta$, which control the
+% shape of the distribution. The pdf of a random variable $X \sim \text{Be}(\alpha, \beta)$ is given by:
+% \[
+% f(x|\alpha, \beta) = \frac{1}{B(\alpha, \beta)} x^{\alpha-1}(1 - x)^{\beta - 1}, \quad 0 < x < 1,\ \alpha > 0,\ \beta > 0,
+% \]
+% where the normalizing constant $B(\alpha, \beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ corresponds to the beta function. The gamma function
+% is defined as $\Gamma(\alpha) := \int_0^\infty t^{\alpha - 1} e^{-t} dt$.
+
+\section{Starting from the general form $\eta x^{\alpha - 1}(1 - x)^{\beta - 1}$, derive the normalizing constant for the beta distribution.}
+
+The Beta distribution, defined over the interval $x \in (0, 1)$, takes general unnormalized form:
+\begin{equation} \label{eq:1-1}
+f(x \mid \alpha, \beta) = \eta x^{\alpha - 1}(1 - x)^{\beta - 1}
+\end{equation}
+
+where $\alpha > 0$, $\beta > 0$, and $\eta$ is a normalizing constant chosen so that the total probability integrates to 1:
+\begin{align}
+\int_0^1 f(x \mid \alpha, \beta)\, dx &= 1 \\
+\eta \int_0^1 x^{\alpha - 1}(1 - x)^{\beta - 1} dx &= 1 \quad \text{(since Eq. (\ref{eq:1-1}))}
+\end{align}
+
+The integral on the left-hand side is known as the \emph{Beta function}, defined as:
+\begin{equation}
+B(\alpha, \beta) = \int_0^1 x^{\alpha - 1}(1 - x)^{\beta - 1} dx
+\end{equation}
+
+Therefore, the normalizing constant is the reciprocal of the Beta function:
+\begin{equation} \label{eq:1-5}
+\eta = \frac{1}{B(\alpha, \beta)}
+\end{equation}
+
+% \subsection*{Connection with the Gamma Function}
+
+On the other hand, the Gamma function is defined as:
+\begin{equation}
+\Gamma(s) = \int_0^{\infty} t^{s - 1} e^{-t} dt, \quad \text{for } s > 0
+\end{equation}
+
+The Beta function can be derived from the Gamma function. Consider the product:
+\begin{align}
+\Gamma(\alpha)\Gamma(\beta) &= \left( \int_0^{\infty} x^{\alpha - 1} e^{-x} dx \right) \left( \int_0^{\infty} y^{\beta - 1} e^{-y} dy \right) \\
+&= \int_0^{\infty} \int_0^{\infty} x^{\alpha - 1} y^{\beta - 1} e^{-(x + y)} dx\,dy
+\end{align}
+
+Perform the change of variables: $t = x + y$, $x = t\mu$, $y = t(1 - \mu)$ where $t \in (0, \infty)$ and $\mu \in (0, 1)$ (because of $x \in (0, t)$). The Jacobian of this transformation is $|J| = t$, so $dx\,dy = t\, d\mu\, dt$. The integral becomes:
+\begin{align}
+\Gamma(\alpha)\Gamma(\beta) &= \int_0^1 \int_0^{\infty} (t\mu)^{\alpha - 1} (t(1 - \mu))^{\beta - 1} e^{-t} t\, dt\, d\mu \\
+&= \int_0^1 \mu^{\alpha - 1} (1 - \mu)^{\beta - 1} d\mu \int_0^{\infty} t^{\alpha + \beta - 1} e^{-t} dt \\
+&= B(\alpha, \beta) \cdot \Gamma(\alpha + \beta)
+\end{align}
+% Rewriting and separating the integrals:
+% \[
+% \Gamma(\alpha)\Gamma(\beta) = \int_0^1 \mu^{\alpha - 1} (1 - \mu)^{\beta - 1} d\mu \int_0^{\infty} t^{\alpha + \beta - 1} e^{-t} dt
+% = B(\alpha, \beta) \cdot \Gamma(\alpha + \beta).
+% \]
+Hence, the Beta function can be expressed in terms of Gamma functions:
+\begin{equation} \label{eq:1-12}
+B(\alpha, \beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}
+\end{equation}
+
+Therefore, the normalizing constant $\eta$ and the probability density function of the Beta distribution are given by:
+\begin{equation*}
+\eta = \frac{1}{B(\alpha, \beta)} = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} \quad \text{(since Eq. (\ref{eq:1-5}))}
+\end{equation*}
+\begin{equation}
+f(x \mid \alpha, \beta) = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha - 1}(1 - x)^{\beta - 1}, \quad x \in (0, 1)
+\end{equation}
+
+% \subsection*{Conclusion}
+
+% Thus, the probability density function of the Beta distribution becomes:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% If we have a variable $x$ that follows a beta distribution, we have
+% \[
+% x \sim \text{Be}(\alpha, \beta) \Rightarrow \eta x^{\alpha - 1}(1 - x)^{\beta - 1}
+% \]
+% $\eta$ being the normalizing constant and being equal to the inverse of the beta function $B(\alpha, \beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$. It ensures that the beta distribution integrates to 1. We want the following expression to be true:
+% \[
+% \int_0^1 \text{Be}(x; \alpha, \beta)dx = 1 \quad \Longleftrightarrow \quad B(x; \alpha, \beta) = \int_0^1 x^{\alpha - 1}(1 - x)^{\beta - 1}dx
+% \]
+
+% We want to express the normalize constant in terms of gamma functions. Gamma functions correspond to a generalization of the factorial and has the following form for a given $\alpha$:
+% \[
+% \Gamma(\alpha) = \int_0^{\infty} e^{-x}x^{\alpha - 1}dx
+% \]
+
+% This form can also be expanded for a given $\beta$
+% \[
+% \Gamma(\beta) = \int_0^{\infty} e^{-y}y^{\beta - 1}dy
+% \]
+
+% If we multiply those two gamma functions, we have
+% \[
+% \Gamma(\alpha)\Gamma(\beta) = \int_0^{\infty} e^{-x}x^{\alpha - 1}dx \int_0^{\infty} e^{-y}y^{\beta - 1}dy
+% \]
+% \[
+% \Gamma(\alpha)\Gamma(\beta) = \int_0^{\infty} \int_0^{\infty} e^{-(x+y)}x^{\alpha - 1}y^{\beta - 1}dxdy
+% \]
+
+% Those two integrals do not depend on each other, we can therefore split them or “merge” them. A first substitution is done by introducing another variable $t = x + y$ ($\Longleftrightarrow y = t - x$) and $\frac{dy}{dt} = 1$ (no distortion in the differential, $dy = dt$). Since $y \in [0, \infty[$, $x$ is now bounded between $0$ and $t$. The integral becomes:
+% \[
+% \Gamma(\alpha)\Gamma(\beta) = \int_0^{\infty} \int_0^t e^{-t}x^{\alpha - 1}(t - x)^{\beta - 1}dxdt
+% \]
+
+% The integrals now depend on each other and the order of the integrals matters! We can do another substitution which is $x = t\mu$ ($\Longleftrightarrow t = \frac{x}{\mu}$) and $\frac{dx}{dt} = t$ (we have a distortion here, $dx = t d\mu$). $\mu$ will be bounded between 0 and 1.
+
+% \[
+% \Gamma(\alpha)\Gamma(\beta) = \int_0^{\infty} \int_0^1 e^{-t(t\mu)}t^{\alpha - 1}(t - t\mu)^{\beta - 1}td\mu dt
+% \]
+% \[
+% \Gamma(\alpha)\Gamma(\beta) = \int_0^{\infty} \int_0^1 e^{-t}t^{\alpha - 1}\mu^{\alpha - 1}t^{\beta - 1}(1 - \mu)^{\beta - 1}td\mu dt
+% \]
+
+% Finally, the two integrals no longer depend on each other, we can therefore split out the 2-dimensional integral into 2 1D integrals:
+% \[
+% \Gamma(\alpha)\Gamma(\beta) = \int_0^{\infty} e^{-t}t^{\alpha - 1 + \beta - 1 + 1}dt \int_0^1 \mu^{\alpha - 1}(1 - \mu)^{\beta - 1}d\mu
+% \]
+% \[
+% \Gamma(\alpha)\Gamma(\beta) = \int_0^{\infty} e^{-t}t^{\alpha + \beta - 1}dt \int_0^1 \mu^{\alpha - 1}(1 - \mu)^{\beta - 1}d\mu
+% \]
+
+% The first integral corresponds to a gamma function $\Gamma(\alpha + \beta)$ and the second integral corresponds to a beta function $B(\mu; \alpha, \beta)$. We can express the beta function in terms of gamma function.
+
+% \[
+% \Gamma(\alpha)\Gamma(\beta) = \Gamma(\alpha + \beta)B(\alpha, \beta)
+% \]
+% \[
+% B(\alpha, \beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}
+% \]
+
+% And therefore the normalizing constant is equal to
+% \[
+% \eta = \frac{1}{B(\alpha, \beta)} = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}
+% \]
