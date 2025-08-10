@@ -5,8 +5,9 @@ This projects were carried by:
 - Duy Vu DINH
 
 ## Overview
-Welcome to the GitHub repository for the projects of the MATH2022 course.
+Welcome to the GitHub repository for the project of the MATH2022 course.
 
+## Project
 The project applies Monte Carlo simulation techniques to study and generate values from the Beta distribution using various random number generation methods, including:
 
 * Inverse Transform Sampling
