@@ -1,7 +1,7 @@
 # MATH2022 Monte Carlo Methods in Statistics
 
 ## Authors
-This projects were carried by:
+This project was carried by:
 - Duy Vu DINH
 
 ## Overview
